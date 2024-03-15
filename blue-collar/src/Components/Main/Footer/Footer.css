@@ -1,0 +1,36 @@
+.footer {
+    cursor: none;
+    color: white;
+    background-color: black;
+}
+
+
+
+.cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    margin-left: -20px;
+    margin-top: -20px;
+    border-radius: 50%;
+    background-color: crgb(104, 104, 247);
+    border: 4px solid #024738;
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  .grow,
+  .grow-small {
+    transform: scale(7);
+    background: #ffffff;
+    mix-blend-mode: difference;
+    border: none;
+  }
+
+  .grow-small {
+    transform: scale(3);
+  }
+
+

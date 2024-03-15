@@ -1,0 +1,27 @@
+.Avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.avatar{
+    display: block;
+    margin: auto;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    margin: 5px;
+    
+}
+
+.buttonDiv {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.subButton {
+    width: calc(50% - 5px);
+    height: 40px;
+}
