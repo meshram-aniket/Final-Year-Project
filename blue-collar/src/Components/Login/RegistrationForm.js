@@ -48,36 +48,36 @@ export default function Login() {
     });
   console.log("🚀 ~ file: Login.js:50 ~ Login ~ err̥ors:", errors);
   
-  const PostData = async (e) => {
-    e.preventDefault();
+  // const PostData = async (e) => {
+  //   e.preventDefault();
 
-    const {fullname, address, email, phone, username, password} = values;
+  //   const {fullname, address, email, phone, username, password} = values;
 
-    const res = await fetch("/register", {
-      method: "POST",
-      headers: {
-        "Content-Type" : "application/json"
-      },
-      body: JSON.stringify({
-        fullname, address, email, phone, username, password
-      })
-    });
+  //   const res = await fetch("/register", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type" : "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       fullname, address, email, phone, username, password
+  //     })
+  //   });
 
-    const data = await res.json();
+  //   const data = await res.json();
 
-    if(data.status === 409) {
-      window.alert("user with email or username already exists")
-      console.alert("user with email or username already exists")
-    }
-    else if (data.status ===  500) {
-      window.alert("something went wrong while registering the user")
-      console.alert("something went wrong while registering the user")
-    }
-    else {
-      window.alert( "user registered successfully")
-      console.alert( "user registered successfully")
-    }
-  }
+  //   if(data.status === 409) {
+  //     window.alert("user with email or username already exists")
+  //     console.alert("user with email or username already exists")
+  //   }
+  //   else if (data.status ===  500) {
+  //     window.alert("something went wrong while registering the user")
+  //     console.alert("something went wrong while registering the user")
+  //   }
+  //   else {
+  //     window.alert( "user registered successfully")
+  //     console.alert( "user registered successfully")
+  //   }
+  // }
 
 
   return (
@@ -294,7 +294,7 @@ export default function Login() {
                   type="submit"
                   className="btn btn-dark btn-block mb-1"
                   style={{ width: "100%" }}
-                  onClick={PostData}
+                  // onClick={PostData}
                 >
                   Register
                 </button>
