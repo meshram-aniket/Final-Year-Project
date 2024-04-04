@@ -1,22 +1,27 @@
 import * as Yup from "yup";
 
 export const regSchema = Yup.object({
-  fullname: Yup.string()
+  // fullName: Yup.string()
+  //   .min(2)
+  //   .max(25)
+  //   // .test(
+  //   //   "capitalized",
+  //   //   "First letter should be capitalized",
+  //     // function (value) {
+  //     //   // Custom validation function to check if the first letter is capitalized
+  //     //   if (value && value.length > 0) {
+  //     //     return value[0] === value[0].toUpperCase();
+  //     //   }
+  //     //   return false;
+  //     // }
+  //   // )
+  //   .required("Please enter your full name"),
+  fullName: Yup.string()
     .min(2)
     .max(25)
-    // .test(
-    //   "capitalized",
-    //   "First letter should be capitalized",
-      // function (value) {
-      //   // Custom validation function to check if the first letter is capitalized
-      //   if (value && value.length > 0) {
-      //     return value[0] === value[0].toUpperCase();
-      //   }
-      //   return false;
-      // }
-    // )
+    .matches(/^[A-Z][a-z]*([\s][A-Z][a-z]*)*$/, "Please capitalize the first letter of each word")
     .required("Please enter your full name"),
-  
+
   username: Yup.string().min(2).max(25).required("Please enter your username"),
   email: Yup.string().email().required("Please enter your email"),
   address: Yup.string().required("Please enter your address"),

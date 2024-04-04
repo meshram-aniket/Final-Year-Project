@@ -27,6 +27,7 @@ export default function Header() {
     };
   }, []);
 
+
   return (
     <>
       <nav className={isScrolled ? "scrolled" : ""}>
@@ -97,3 +98,7 @@ export default function Header() {
     </>
   );
 }
+
+
+
+

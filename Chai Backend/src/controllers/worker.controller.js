@@ -136,6 +136,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     user.isActive = true;
     await user.save();
+    
 
     const { accessToken, refreshToken } = await
         generateAccessAndRefereshTokens(user._id)
@@ -163,6 +164,8 @@ const loginUser = asyncHandler(async (req, res) => {
                 "User logged in Successfully"
             )
         )
+
+
 })
 
 const logoutUser = asyncHandler(async(req, res) => {

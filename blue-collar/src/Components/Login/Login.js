@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { signUpSchema } from "../../Schemas";
+import { useNavigate } from "react-router-dom";
+
 
 
 export default function Login() {
@@ -8,6 +10,7 @@ export default function Login() {
   // const [password, setPassword] = useState("");
   //toggle button function
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -35,20 +38,55 @@ export default function Login() {
       validateOnChange: true,
       validateOnBlur: false,
       //// By disabling validation onChange and onBlur formik will validate on submit.
-      onSubmit: (val̥ues, action) => {
-        console.log("🚀 ~ file: Login.js:38 ~ Login ~ val̥ues:", val̥ues)
-        action.resetForm();
-        if(
-          values.username !== "" &&
-          values.password !== ""
-          ){
+      // onSubmit: (val̥ues, action) => {
+      //   console.log("🚀 ~ file: Login.js:38 ~ Login ~ val̥ues:", val̥ues)
+      //   action.resetForm();
+      //   if(
+      //     values.username !== "" &&
+      //     values.password !== ""
+      //     ){
             
-            loginAlert();
+      //       loginAlert();
+      //     }
+      // } 
+
+      onSubmit: async (values, action) => {
+        console.log("🚀 ~ file: Login.js:38 ~ Login ~ val̥ues:", values)
+
+        try {
+          const res = await fetch(
+            "http://localhost:5000/api/v1/users/login",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(values),
+            }
+          );
+          console.log(res);
+
+
+          if (res.status === 400) {
+            window.alert("User with email or username already exists");
+          } else if (res.status === 404) {
+            window.alert("username is not exists");
+          } else if (res.status === 401) {
+            window.alert("invalid user credentials");
+          } else {
+            window.alert("User logged in successfully");
+            action.resetForm();
+            navigate("/");
           }
-      } 
+        } catch (error) {
+          console.error("Error registering user:", error);
+          window.alert("Something went wrong while log in the user");
+        }
+      },
     });
 
-  console.log(errors);
+    console.log("🚀 ~ file: Login.js:38 ~ Login ~ val̥ues:", errors)
+
 
 
   return (

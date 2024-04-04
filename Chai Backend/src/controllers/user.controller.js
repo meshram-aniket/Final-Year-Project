@@ -244,7 +244,7 @@ const findNearestWorker = asyncHandler(async (req, res) => {
           },
           distanceField: "distance", // Field to add the distance
           spherical: true,
-          maxDistance: 5000, // Max distance in meters (10 kilometers)
+          maxDistance: 10000, // Max distance in meters (10 kilometers)
         },
       },
       { $limit: 10 }, // Limit to the nearest worker

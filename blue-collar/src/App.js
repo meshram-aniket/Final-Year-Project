@@ -17,7 +17,6 @@ import AnimatedWord from "./Components/Main/AnimatedWord/AnimatedWord"
 import Reviews from "./Components/Main/Reviews/Reviews"
 import EditAvatar from "./Components/Login/EditAvatar";
 import Location from "./Components/Location/Location";
-
 import "./App.css"
 
 gsap.registerPlugin(CSSPlugin);
@@ -34,7 +33,6 @@ function App() {
         {/* <Route path="/reviews" element={<Reviews />} /> */}
         <Route path="/editAvatar" element={<EditAvatar />} />
         <Route path="/location" element={<Location />} />
-
       </Routes>
       {/* <AnimatedWord/> */}
       

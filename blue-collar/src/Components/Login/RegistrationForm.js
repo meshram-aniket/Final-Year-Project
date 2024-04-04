@@ -2,82 +2,85 @@ import React from "react";
 import { useState } from "react";
 import { useFormik } from "formik";
 import { regSchema } from "../../Schemas";
+import { useNavigate } from "react-router-dom";
 import "./RegistrationForm.css";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  //   Register alert
-  const registerAlert = () => {
-    alert("Clicked on the link send on the email for confirmation");
-  };
-
   const initialValues = {
-    fullname: "",
-    username: "",
-    email: "",
-    password: "", 
+    fullName: "",
     address: "",
-    phone: ""
+    email: "",
+    phone: "",
+    username: "",
+    password: "",
   };
-
+  
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: initialValues,
       validationSchema: regSchema,
+      vvalidateOnChange: true,
+      validateOnBlur: false,
 
-      onSubmit: (values, action) => {
+      // onSubmit: (values, action) => {
+        //   console.log("🚀 ~ file: Login.js:51 ~ Login ~ value̥s:", values);
+        
+        //   action.resetForm();
+        //   if (
+          //     values.fullName !== "" &&
+          //     values.address !== "" &&
+          //     values.email !== "" &&
+      //     values.phone !== "" &&
+      //     values.username !== "" &&
+      //     values.password !== ""
+
+      //   ) {
+      //     registerAlert();
+      //   }
+      // },
+
+      onSubmit: async (values, action) => {
         console.log("🚀 ~ file: Login.js:51 ~ Login ~ value̥s:", values);
-        action.resetForm();
-        if (
-          values.fullname !== "" &&
-          values.username !== "" &&
-          values.email !== "" &&
-          values.password !== "" &&
-          values.address !== "" &&
-          values.phone !== ""
-         
-        ) {
-          registerAlert();
-        }  
+
+        try {
+          const res = await fetch(
+            "http://localhost:5000/api/v1/users/register",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(values),
+            }
+          );
+          console.log(res);
+
+
+          if (res.status === 409) {
+            window.alert("User with email or username already exists");
+          } else if (res.status === 400) {
+            window.alert("All fields are required");
+          } else if (res.status === 500) {
+            window.alert("Something went wrong while registering the user");
+          } else {
+            window.alert("User registered successfully");
+            action.resetForm();
+            navigate("/");
+          }
+        } catch (error) {
+          console.error("Error registering user:", error);
+          window.alert("Something went wrong while registering the user");
+        }
       },
     });
   console.log("🚀 ~ file: Login.js:50 ~ Login ~ err̥ors:", errors);
-  
-  // const PostData = async (e) => {
-  //   e.preventDefault();
-
-  //   const {fullname, address, email, phone, username, password} = values;
-
-  //   const res = await fetch("/register", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type" : "application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       fullname, address, email, phone, username, password
-  //     })
-  //   });
-
-  //   const data = await res.json();
-
-  //   if(data.status === 409) {
-  //     window.alert("user with email or username already exists")
-  //     console.alert("user with email or username already exists")
-  //   }
-  //   else if (data.status ===  500) {
-  //     window.alert("something went wrong while registering the user")
-  //     console.alert("something went wrong while registering the user")
-  //   }
-  //   else {
-  //     window.alert( "user registered successfully")
-  //     console.alert( "user registered successfully")
-  //   }
-  // }
 
 
   return (
@@ -115,27 +118,27 @@ export default function Login() {
                     type="text"
                     className="form-control"
                     style={
-                      errors.fullname && touched.fullname
+                      errors.fullName && touched.fullName
                         ? { border: "solid red 2px" }
                         : { border: "solid #d4d4d4 1px" }
                     }
                     autoComplete="off"
-                    name="fullname"
-                    id="fullname"
+                    name="fullName"
+                    id="fullName"
                     placeholder="Full Name"
-                    value={values.fullname.toUpperCase()}
+                    value={values.fullName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  {errors.fullname && touched.fullname ? (
+                  {errors.fullName && touched.fullName ? (
                     <p className="form-error text-danger text-danger">
-                      {errors.fullname}
+                      {errors.fullName}
                     </p>
                   ) : null}
                 </div>
 
-                 {/* address input */}
-                 <div className="form-outline py-3">
+                {/* address input */}
+                <div className="form-outline py-3">
                   <label className="form-label" htmlFor="registerAddress">
                     Address
                   </label>
@@ -160,8 +163,8 @@ export default function Login() {
                   ) : null}
                 </div>
 
-                 {/* Email input */}
-                 <div className="form-outline py-2">
+                {/* Email input */}
+                <div className="form-outline py-2">
                   <label className="form-label" htmlFor="registerEmail">
                     Email
                   </label>
@@ -237,8 +240,7 @@ export default function Login() {
                     <p className="form-error text-danger">{errors.username}</p>
                   ) : null}
                 </div>
-               
-               
+
                 {/* Password input */}
                 <div className="form-outline py-2">
                   <label className="form-label" htmlFor="form2Example2">
@@ -287,7 +289,7 @@ export default function Login() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Submit button */}
                 <button
                   href="#!"

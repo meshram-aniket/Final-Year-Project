@@ -110,13 +110,18 @@ export default function WorkerList() {
       Rating: "5",
     },
     {
+      id: 4,
       Name: "Chelsey Dietrich",
       Phone: "7972785900",
       Rating: "5",
     },
   ];
 
-    
+    const getWorkerId = (ID) => {
+      return function () {
+        console.log(ID);
+      }
+    }
 
   
   return (
@@ -144,13 +149,13 @@ export default function WorkerList() {
                 />
                 <div className="card-body cursor-scale small" style={styles.cardBody}>
                   <h5 className="card-title" style={styles.heading}>
-                    Name: {item.Name}
+                    <b>Name: </b> {data.Name}
                   </h5>
                   <h5 className="card-title" style={styles.heading}>
-                    Phone: {item.Phone}
+                    <b>Phone: </b> {data.Phone}
                   </h5>
                   <h5 className="card-title" style={styles.heading}>
-                    Rating: {item.Rating}
+                    <b>Rating: </b> {data.Rating}
                   </h5>
                   {/* <p className="card-text">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -162,6 +167,7 @@ export default function WorkerList() {
                   <button
                     className="btn btn-dark cursor-scale small"
                     style={styles.btnPrimary}
+                    onClick={getWorkerId(data.id)}
                   >
                     Book Now
                   </button>
