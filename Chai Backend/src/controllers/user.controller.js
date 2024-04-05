@@ -90,7 +90,7 @@ const registerUser = asyncHandler( async (req, res) => {
   })
 
   const createdUser = await User.findById(user._id).select(
-      "-password -refreshToken"
+      "-password -refreshToken" 
   )
 
   if (!createdUser) {
@@ -140,7 +140,7 @@ const loginUser = asyncHandler(async (req, res) => {
   );
 
   const loggedInUser = await User.findById(user._id).select(
-    "-password -refreshToken "
+    "-password -refreshToken"
   );
 
 
@@ -334,9 +334,14 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
-  return res
-    .status(200)
-    .json(200, req.user, "currect user fetched successfully");
+  // return res      //this is chai code 
+  //   .status(200)
+  //   .json(200, req.user, "currect user fetched successfully");
+
+  const userData = req.user;
+  console.log(userData);
+  return res.status(200).json({ msg: userData})
+  // .json(200, req.user, "currect user fetched successfully");
 });
 
 const updateAccountDetails = asyncHandler(async (req, res) => {

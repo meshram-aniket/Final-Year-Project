@@ -21,7 +21,7 @@ export default function Login() {
     username: "",
     password: "",
   };
-  
+
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: initialValues,
@@ -30,13 +30,13 @@ export default function Login() {
       validateOnBlur: false,
 
       // onSubmit: (values, action) => {
-        //   console.log("🚀 ~ file: Login.js:51 ~ Login ~ value̥s:", values);
-        
-        //   action.resetForm();
-        //   if (
-          //     values.fullName !== "" &&
-          //     values.address !== "" &&
-          //     values.email !== "" &&
+      //   console.log("🚀 ~ file: Login.js:51 ~ Login ~ value̥s:", values);
+
+      //   action.resetForm();
+      //   if (
+      //     values.fullName !== "" &&
+      //     values.address !== "" &&
+      //     values.email !== "" &&
       //     values.phone !== "" &&
       //     values.username !== "" &&
       //     values.password !== ""
@@ -62,15 +62,19 @@ export default function Login() {
           );
           console.log(res);
 
-
           if (res.status === 409) {
             window.alert("User with email or username already exists");
-          } else if (res.status === 400) {
+          } 
+          else if (res.status === 400) {
             window.alert("All fields are required");
-          } else if (res.status === 500) {
+          } 
+          else if (res.status === 500) {
             window.alert("Something went wrong while registering the user");
-          } else {
+          } 
+          else {
             window.alert("User registered successfully");
+            const res_data = await res.json();
+            console.log("res from server", res_data);
             action.resetForm();
             navigate("/");
           }
@@ -81,7 +85,6 @@ export default function Login() {
       },
     });
   console.log("🚀 ~ file: Login.js:50 ~ Login ~ err̥ors:", errors);
-
 
   return (
     <>

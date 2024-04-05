@@ -33,6 +33,7 @@ function App() {
         {/* <Route path="/reviews" element={<Reviews />} /> */}
         <Route path="/editAvatar" element={<EditAvatar />} />
         <Route path="/location" element={<Location />} />
+
       </Routes>
       {/* <AnimatedWord/> */}
       

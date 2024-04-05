@@ -1,27 +1,21 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { signUpSchema } from "../../Schemas";
-import { useNavigate } from "react-router-dom";
-
-
+import { useAuth } from "../../Store/Auth";
 
 export default function Login() {
 
   // const [password, setPassword] = useState("");
   //toggle button function
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
+  
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
 
-  //   login alert
-  const loginAlert = () => {
-    alert("Login Successfully");
-  };
-
+  const {storeTokenInLS} = useAuth()
 
 
   //validation
@@ -69,14 +63,20 @@ export default function Login() {
 
           if (res.status === 400) {
             window.alert("User with email or username already exists");
-          } else if (res.status === 404) {
+          } 
+          else if (res.status === 404) {
             window.alert("username is not exists");
-          } else if (res.status === 401) {
+          } 
+          else if (res.status === 401) {
             window.alert("invalid user credentials");
-          } else {
+          } 
+          else {
             window.alert("User logged in successfully");
+            const res_data = await res.json();
+            console.log('res from server', res_data);
+            // localStorage.setItem('accessToken', res_data.data.accessToken)
+            storeTokenInLS(res_data.data.accessToken);
             action.resetForm();
-            navigate("/");
           }
         } catch (error) {
           console.error("Error registering user:", error);
